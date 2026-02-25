@@ -1,37 +1,36 @@
-const express = require("express");
-const path = require("path");
+const express = require('express')
+const path = require('path')
+const port = process.env.PORT || 5000
 
-const app = express();
+const app = express()
 
-// Serve static files
-app.use(express.static(path.join(__dirname, "public")));
+let posts = [
+    {id:1, title:'post one'},
+    {id:2, title:'post two'},
+    {id:3, title:'post three'},
+]
+// get all posts
+app.get('/api/posts', (req,res)=>{
+    const limit = parseInt(req.query.limit)
+    if(!isNaN(limit) && limit>0){
+       return res.status(200).json(posts.slice(0,limit))
+    } 
+    res.status(200).json(posts)
+    
+})
 
-// Home route (optional, since index.html works automatically)
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+//get single post
 
-// Manual route for /about (clean URL)
-app.get("/about", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "about.html"));
-});
+app.get('/api/posts/:id', (req,res)=>{
+    const id = parseInt(req.params.id)
 
-// Basic text route
-app.get("/contact", (req, res) => {
-  res.send("Contact page working 🚀");
-});
+    const post = posts.find((post)=> post.id === id)
 
-// JSON response route
-app.get("/about-api", (req, res) => {
-  res.json({ message: "About API working" });
-});
+    if(!post){
+        return res.status(404).json({message: "Post not found"})
+    }
 
-// Query parameter example
-app.get("/greet", (req, res) => {
-  const name = req.query.name || "Guest";
-  res.send(`Hello ${name}`);
-});
+    res.status(200).json(post)
+})
 
-app.listen(5000, () => {
-  console.log("Server started on port 5000");
-});
+app.listen(port, () => console.log(`server is running successfully ${port}`))
