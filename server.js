@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const port = process.env.PORT || 5000
-const posts = require('./routes/post')
+const users = require('./routes/user')
 
 const app = express()
 
@@ -10,6 +10,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 //Routes
-app.use('/api/posts', posts)
+app.use('/api/users', users)
 
 app.listen(port, () => console.log(`server is running successfully ${port}`))
