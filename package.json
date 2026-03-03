@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start" : "node server",
+    "start": "node server",
     "dev": "node --watch --env-file=.env server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.2.1"
+    "colors": "^1.4.0",
+    "express": "^5.2.1",
+    "mongoose": "^9.2.3"
   }
 }

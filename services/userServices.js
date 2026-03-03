@@ -1,23 +1,18 @@
+const User = require('../models/User');
 const ApiError = require('../utils/ApiError');
 
-let users = [
-  { id: 1, name: "John", createdAt: new Date() },
-  { id: 2, name: "Kenady", createdAt: new Date() },
-  { id: 3, name: "Thomas", createdAt: new Date() }
-];
-
-exports.getAllUsers = (limit) => {
+exports.getAllUsers = async (limit) => {
   const parsedLimit = Number(limit);
 
   if (!Number.isNaN(parsedLimit) && parsedLimit > 0) {
-    return users.slice(0, parsedLimit);
+    return await User.find().limit(parsedLimit);
   }
 
-  return users;
+  return await User.find();
 };
 
-exports.getUserById = (id) => {
-  const user = users.find(u => u.id === id);
+exports.getUserById = async (id) => {
+  const user = await User.findById(id);
 
   if (!user) {
     throw new ApiError("User not found", 404);
@@ -26,46 +21,50 @@ exports.getUserById = (id) => {
   return user;
 };
 
-exports.createUser = (data) => {
-  const { name } = data;
+exports.createUser = async (data) => {
+  const { name, email } = data;
 
   if (!name || name.length < 3) {
     throw new ApiError("Name must be at least 3 characters", 400);
   }
 
-  const newUser = {
-    id: users.length ? users[users.length - 1].id + 1 : 1,
+  const newUser = await User.create({
     name,
-    createdAt: new Date()
-  };
+    email
+  });
 
-  users.push(newUser);
   return newUser;
 };
 
-exports.updateUser = (id, data) => {
-  const user = users.find(u => u.id === id);
-
-  if (!user) {
-    throw new ApiError("User not found", 404);
-  }
-
+exports.updateUser = async (id, data) => {
   const { name } = data;
 
-  if (!name || name.length < 3) {
+  if (name && name.length < 3) {
     throw new ApiError("Name must be at least 3 characters", 400);
   }
 
-  user.name = name;
-  return user;
-};
+  const updatedUser = await User.findByIdAndUpdate(
+    id,
+    data,
+    {
+      new: true,
+      runValidators: true
+    }
+  );
 
-exports.deleteUser = (id) => {
-  const index = users.findIndex(u => u.id === id);
-
-  if (index === -1) {
+  if (!updatedUser) {
     throw new ApiError("User not found", 404);
   }
 
-  users.splice(index, 1);
+  return updatedUser;
+};
+
+exports.deleteUser = async (id) => {
+  const deletedUser = await User.findByIdAndDelete(id);
+
+  if (!deletedUser) {
+    throw new ApiError("User not found", 404);
+  }
+
+  return deletedUser;
 };

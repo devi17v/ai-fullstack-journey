@@ -1,6 +1,8 @@
 //importing the express frame work
 const express = require('express'); 
 
+const connectDB = require("./config/db");
+
 //importing user-related routes from another file.
 const userRoutes = require('./routes/userRoutes'); 
 
@@ -14,6 +16,10 @@ const app = express();
 //process.env.PORT → used in production (like deployment).
 //5000 → default port for local development.
 const port = process.env.PORT || 5000;
+
+//Mongo DB
+
+connectDB();
 
 //Middleware to parse JSON request body.
 app.use(express.json());

@@ -1,67 +1,48 @@
-//controller layer - This is where request handling + validation happens before calling service.
-
 const userService = require('../services/userServices');
-const ApiError = require('../utils/ApiError');
+const asyncHandler = require('../utils/asyncHandler');
 
-exports.getUsers = (req, res, next) => {
-  try {
-    const users = userService.getAllUsers(req.query.limit);
-    res.status(200).json(users);
-  } catch (err) {
-    next(err);
-  }
-};
+exports.getUsers = asyncHandler(async (req, res) => {
+  const users = await userService.getAllUsers(req.query.limit);
 
-exports.getUserById = (req, res, next) => {
-  try {
-    const id = Number(req.params.id);
+  res.status(200).json({
+    status: "success",
+    results: users.length,
+    data: users
+  });
+});
 
-    if (Number.isNaN(id) || id <= 0) {
-      throw new ApiError("Invalid ID format", 400);
-    }
+exports.getUserById = asyncHandler(async (req, res) => {
+  const user = await userService.getUserById(req.userId);
 
-    const user = userService.getUserById(id);
-    res.status(200).json(user);
-  } catch (err) {
-    next(err);
-  }
-};
+  res.status(200).json({
+    status: "success",
+    data: user
+  });
+});
 
-exports.createUser = (req, res, next) => {
-  try {
-    const newUser = userService.createUser(req.body);
-    res.status(201).json(newUser);
-  } catch (err) {
-    next(err);
-  }
-};
+exports.createUser = asyncHandler(async (req, res) => {
+  const newUser = await userService.createUser(req.body);
 
-exports.updateUser = (req, res, next) => {
-  try {
-    const id = Number(req.params.id);
+  res.status(201).json({
+    status: "success",
+    data: newUser
+  });
+});
 
-    if (Number.isNaN(id) || id <= 0) {
-      throw new ApiError("Invalid ID format", 400);
-    }
+exports.updateUser = asyncHandler(async (req, res) => {
+  const updatedUser = await userService.updateUser(req.userId, req.body);
 
-    const updatedUser = userService.updateUser(id, req.body);
-    res.status(200).json(updatedUser);
-  } catch (err) {
-    next(err);
-  }
-};
+  res.status(200).json({
+    status: "success",
+    data: updatedUser
+  });
+});
 
-exports.deleteUser = (req, res, next) => {
-  try {
-    const id = Number(req.params.id);
+exports.deleteUser = asyncHandler(async (req, res) => {
+  await userService.deleteUser(req.userId);
 
-    if (Number.isNaN(id) || id <= 0) {
-      throw new ApiError("Invalid ID format", 400);
-    }
-
-    userService.deleteUser(id);
-    res.status(200).json({ message: "User deleted successfully" });
-  } catch (err) {
-    next(err);
-  }
-};
+  res.status(204).json({
+    status: "success",
+    data: null
+  });
+});
