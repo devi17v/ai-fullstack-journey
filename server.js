@@ -1,44 +1,50 @@
-//importing the express frame work
-const express = require('express'); 
+// Load environment variables FIRST
+require("dotenv").config();
 
+// Import dependencies
+const express = require("express");
 const connectDB = require("./config/db");
 
-//importing user-related routes from another file.
-const userRoutes = require('./routes/userRoutes'); 
+const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/authRoutes");
 
-//importing a custom error handling middleware.
-const errorHandler = require('./middleware/errorHandler');
+const errorHandler = require("./middleware/errorHandler");
 
-//Creating an Express application.
-const app = express(); 
+// Create express app
+const app = express();
 
-//Setting the port number.
-//process.env.PORT → used in production (like deployment).
-//5000 → default port for local development.
-const port = process.env.PORT || 5000;
-
-//Mongo DB
-
-connectDB();
-
-//Middleware to parse JSON request body.
+// Middleware to parse JSON
 app.use(express.json());
-
-//Middleware to parse form data.
 app.use(express.urlencoded({ extended: false }));
 
-//Mounting user routes.
-app.use('/api/users', userRoutes);
+// Register routes
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
-// 404 catch-all - fallback middleware - If no route matches, this runs.
-app.use((req, res) => {
-  res.status(404).json({ message: "Route not found" });
+// 404 Middleware (must come after routes)
+app.use((req, res, next) => {
+  res.status(404).json({
+    status: "fail",
+    message: "Route not found"
+  });
 });
 
-// Central error handler
+// Global error middleware (must be last)
 app.use(errorHandler);
 
-//makes the server start listening.
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// Start server AFTER DB connection
+const PORT = process.env.PORT || 5000;
+
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ Failed to start server:", error.message);
+    process.exit(1);
+  }
+};
+
+startServer();
