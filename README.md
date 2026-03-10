@@ -1,45 +1,41 @@
-🚀 AI Fullstack Journey – Backend API
+# Secure Authentication API (Node.js + Express + MongoDB)
 
-A clean, production-style REST API built with Node.js and Express following layered architecture principles.
+A secure authentication system built with **Node.js, Express, and MongoDB**.
+This project demonstrates production-level backend practices including **JWT authentication, role-based authorization, rate limiting, logging, and security middleware**.
 
-📌 **Project Overview**
+## Features
 
-This project demonstrates:
+* User Registration
+* Secure Login System
+* JWT Authentication
+* Role-Based Authorization
+* Password Hashing using **bcrypt**
+* Rate Limiting to prevent brute-force attacks
+* Security headers using **Helmet**
+* CORS configuration
+* Centralized Error Handling
+* Winston Logger for logging system events
+* RESTful API design
 
-    1. Clean layered architecture (Route → Controller → Service)
+## Tech Stack
 
-    2. Centralized error handling
+* **Node.js**
+* **Express.js**
+* **MongoDB**
+* **Mongoose**
+* **JWT (jsonwebtoken)**
+* **bcrypt**
+* **express-rate-limit**
+* **Winston Logger**
+* **Helmet**
+* **CORS**
 
-    3. Custom API error class
+This project includes several security best practices:
 
-    4. Catch-all 404 handling
-
-    5. Separation of concerns
-
-    6. Scalable backend folder structure
-
-🏗 **Architecture**
-
-The project follows a layered architecture pattern:
-
-                Client
-                  ↓
-                Routes
-                  ↓
-                Controllers
-                  ↓
-                Services
-                  ↓
-                Data Source
-
-**Why This Architecture?**
-
-    1. Routes handle HTTP wiring only
-
-    2. Controllers handle request/response logic
-
-    3. Services contain business logic
-
-    4. Centralized middleware handles errors
-
-    5. Easy to scale and test
+* **Password hashing** with bcrypt
+* **JWT token authentication**
+* **Role-based authorization**
+* **Rate limiting** to prevent brute-force attacks
+* **Helmet** for secure HTTP headers
+* **Centralized error handling**
+* **Logging with Winston**
