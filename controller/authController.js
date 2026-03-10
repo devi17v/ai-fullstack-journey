@@ -2,6 +2,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("../utils/asyncHandler");
 const ApiError = require("../utils/ApiError");
+const logger = require("../utils/logger");
 
 //Generate Token
 const generateToken = (user) => {
@@ -38,13 +39,15 @@ exports.login = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email }).select("+password");
 
   if (!user || !(await user.comparePassword(password))) {
-    throw new ApiError("Invalid credentials", 401);
+    logger.info("User login attempt");
+    logger.error("Invalid credentials");
+    throw new ApiError("Invalid credentials", 401); 
   }
 
   const token = generateToken(user);
-
-  res.status(200).json({
+    res.status(200).json({
     status: "success",
     token
   });
 });
+

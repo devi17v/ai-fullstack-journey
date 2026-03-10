@@ -1,0 +1,37 @@
+2026-03-09T04:12:57.116Z info: Server started
+2026-03-09T04:12:57.831Z info: MongoDB Connected
+2026-03-09T04:14:04.197Z info: Server started
+2026-03-09T04:14:04.819Z info: MongoDB Connected
+2026-03-09T04:14:31.629Z info: MongoDB Connected
+2026-03-09T04:14:48.439Z info: MongoDB Connected
+2026-03-09T04:17:25.939Z info: MongoDB Connected
+2026-03-09T04:18:08.469Z info: MongoDB Connected
+2026-03-09T04:23:28.631Z info: MongoDB Connected
+2026-03-09T04:23:40.498Z info: MongoDB Connected
+2026-03-09T04:23:51.266Z info: User login attempt
+2026-03-09T04:23:51.266Z error: Invalid credentials
+2026-03-09T08:02:39.317Z info: MongoDB Connected
+2026-03-10T04:13:58.512Z info: MongoDB Connected
+2026-03-10T04:14:12.912Z info: MongoDB Connected
+2026-03-10T04:14:17.209Z info: MongoDB Connected
+2026-03-10T04:14:44.016Z info: MongoDB Connected
+2026-03-10T04:15:01.147Z info: User login attempt
+2026-03-10T04:15:01.147Z error: Invalid credentials
+2026-03-10T04:15:48.190Z info: MongoDB Connected
+2026-03-10T04:15:55.737Z info: User login attempt
+2026-03-10T04:15:55.738Z error: Invalid credentials
+2026-03-10T04:16:03.639Z info: User login attempt
+2026-03-10T04:16:03.639Z error: Invalid credentials
+2026-03-10T04:16:06.243Z info: User login attempt
+2026-03-10T04:16:06.244Z error: Invalid credentials
+2026-03-10T04:16:07.994Z info: User login attempt
+2026-03-10T04:16:07.994Z error: Invalid credentials
+2026-03-10T04:16:09.698Z info: User login attempt
+2026-03-10T04:16:09.699Z error: Invalid credentials
+2026-03-10T04:16:27.298Z info: MongoDB Connected
+2026-03-10T04:38:59.862Z info: Server middleware initialized
+2026-03-10T04:39:00.767Z info: MongoDB Connected
+2026-03-10T04:39:00.772Z info: 🚀 Server running on port 8000
+2026-03-10T04:46:49.154Z info: Server middleware initialized
+2026-03-10T04:46:49.836Z info: MongoDB Connected
+2026-03-10T04:46:49.838Z info: 🚀 Server running on port 8000

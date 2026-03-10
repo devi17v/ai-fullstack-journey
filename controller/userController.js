@@ -1,5 +1,6 @@
 const userService = require('../services/userServices');
 const asyncHandler = require('../utils/asyncHandler');
+const logger = require("../utils/logger");
 
 exports.getUsers = asyncHandler(async (req, res) => {
   const users = await userService.getAllUsers(req.query.limit);
